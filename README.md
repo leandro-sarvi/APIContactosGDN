@@ -1,6 +1,14 @@
 # API de Contacto GDN
 Este repositorio contiene una API de Contacto desarrollada en Java con Spring Boot y Spring Security. 
 La API utiliza OpenSSL para la generación de claves privadas y públicas, así como JWT para la autenticación.
+### Tecnologías utilizadas
+
+- Spring Boot: Framework de aplicación de Java para crear aplicaciones autónomas y basadas en producción.
+- Spring Security: Marco de seguridad que proporciona autenticación y control de acceso para aplicaciones Spring.
+- JavaMail: Biblioteca de Java para enviar correos electrónicos.
+- OpenSSL: Herramienta utilizada para la generación de claves privadas y públicas.
+- JWT (JSON Web Tokens): Estándar para la autenticación y autorización de usuarios.
+- UUID (Universally Unique Identifier): Utilizado para generar identificadores únicos, como las URL de confirmación de correo electrónico.
 
 # Generación de claves privadas y públicas
 Para utilizar la funcionalidad de autenticación JWT, es necesario generar un par de claves privadas y públicas. Puedes seguir estos pasos para generarlas:

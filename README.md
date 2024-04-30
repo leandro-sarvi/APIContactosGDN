@@ -16,11 +16,9 @@ Para utilizar la funcionalidad de autenticación JWT, es necesario generar un pa
 # Abre una terminal y ejecuta los siguientes comandos:
 
 ```bash
-
 openssl genrsa -out private.key 2048
 
 ```bash
-
 openssl rsa -in private.key -pubout -out public.key
 
 Esto generará un archivo private.key que contiene la clave privada y un archivo public.key que contiene la clave pública.

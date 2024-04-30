@@ -15,10 +15,8 @@ Para utilizar la funcionalidad de autenticación JWT, es necesario generar un pa
 
 # Abre una terminal y ejecuta los siguientes comandos:
 
-```bash
 openssl genrsa -out private.key 2048
 
-```bash
 openssl rsa -in private.key -pubout -out public.key
 
 Esto generará un archivo private.key que contiene la clave privada y un archivo public.key que contiene la clave pública.
@@ -48,7 +46,6 @@ Ejecutar la aplicación
 Una vez generadas las claves y configuradas las propiedades de correo electrónico, 
 puedes ejecutar la aplicación utilizando Maven o Gradle. Por ejemplo, con Maven puedes usar el siguiente comando:
 
-bash
 mvn spring-boot:run
 
 Esto iniciará la aplicación en el puerto predeterminado (generalmente el puerto 8080).

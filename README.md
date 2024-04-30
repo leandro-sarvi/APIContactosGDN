@@ -13,12 +13,12 @@ openssl rsa -in private.key -pubout -out public.key
 
 Esto generará un archivo private.key que contiene la clave privada y un archivo public.key que contiene la clave pública.
 
+# Configuración para el envío de correos electrónicos
+
 Configuración de propiedades para el envío de correos
 La API también puede enviar correos electrónicos a través de un proveedor de servicios de correo electrónico. Para configurar esta funcionalidad, asegúrate de tener las siguientes propiedades en tu archivo de configuración application.properties:
 
 properties
-
-# Configuración para el envío de correos electrónicos
 
 spring.mail.host=smtp.example.com
 

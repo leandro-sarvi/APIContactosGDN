@@ -101,6 +101,23 @@ public class AuthService implements IAuthService {
         }
         return response;
     }
+
+    @Override
+    public ResponseDto modifydUser(Long id, UserDto userDto) {
+        ResponseDto responseDto = new ResponseDto();
+        Date now = new Date();
+        Optional<User> userOptional = this.userRepository.findUserById(id);
+        if(userOptional.isEmpty()){
+            responseDto.setMessage("INVALID_USER_ID");
+            responseDto.setTimeStamp(now);
+            responseDto.setError(responseDto.getError() + 1);
+            return responseDto;
+        }
+        // Verificamos el contexto de la seguridad
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return null;
+    }
+
     @Override
     public HashMap<String, String> confirmEmail(String tokenConfirm) {
         Date now = new Date();

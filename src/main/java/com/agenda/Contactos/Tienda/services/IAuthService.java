@@ -15,6 +15,7 @@ import java.util.HashMap;
 public interface IAuthService {
     HashMap<String,String> login(LoginDto loginDto) throws IOException, NoSuchAlgorithmException, InvalidKeySpecException, JOSEException, MessagingException;
      ResponseDto register(UserDto userDto) throws Exception;
+     ResponseDto modifydUser(Long id, UserDto userDto);
      ResponseDto deleteUser(Long id,String password);
      HashMap<String,String> confirmEmail(String tokenConfirm);
      Authentication sessionVerifier();

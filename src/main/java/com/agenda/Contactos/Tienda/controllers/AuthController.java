@@ -9,6 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import org.thymeleaf.context.Context;
+import org.thymeleaf.spring6.SpringTemplateEngine;
+
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
@@ -18,8 +21,10 @@ import java.util.HashMap;
 @RequestMapping("/auth")
 public class AuthController {
     private final IAuthService authService;
-    public AuthController(IAuthService authService){
+    private SpringTemplateEngine templateEngine;
+    public AuthController(IAuthService authService, SpringTemplateEngine templateEngine){
         this.authService = authService;
+        this.templateEngine = templateEngine;
     }
     @PostMapping("/login")
     public ResponseEntity<HashMap<String, String>> login(@RequestBody LoginDto loginDto) throws IOException, NoSuchAlgorithmException, InvalidKeySpecException, JOSEException, MessagingException {
@@ -39,11 +44,16 @@ public class AuthController {
     }
     @GetMapping("/confirm-mail/{token}")
     @ResponseBody
-    public HashMap<String, String> confirmarCorreo(@PathVariable("token") String token) {
+    public String confirmarCorreo(@PathVariable("token") String token) {
         // Aquí puedes implementar la lógica para validar el token
         // y confirmar la dirección de correo electrónico del usuario
-        HashMap<String,String> response = this.authService.confirmEmail(token);
-        return response;
+        this.authService.confirmEmail(token);
+        Context context = new Context();
+
+
+        // Procesar la plantilla Thymeleaf
+        String html = templateEngine.process("confirmedemail", context);
+        return html;
     }
     @PostMapping("/userdelete/{id}")
     public ResponseEntity<ResponseDto> deleteUserById(@PathVariable Long id,@RequestBody String password){

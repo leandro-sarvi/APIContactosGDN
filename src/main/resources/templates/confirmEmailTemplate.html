@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Confirmación de correo electrónico</title>
+    <style>
+        .button {
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+<h1>¡Gracias por registrarte, <span th:text="${toUser}">usuario</span>!</h1>
+<p>Para completar el registro, por favor haz click en el siguiente enlace para confirmar tu dirección de correo electrónico:</p>
+<p>
+    <a th:href="@{http://localhost:8080/auth/confirm-mail/{token}(token=${token})}" class="button">Confirmar correo electrónico</a>
+</p>
+<p>¡Muchas gracias!</p>
+</body>
+</html>

@@ -4,6 +4,7 @@ import com.agenda.Contactos.Tienda.services.IAuthService;
 import com.agenda.Contactos.Tienda.dto.LoginDto;
 import com.agenda.Contactos.Tienda.dto.ResponseDto;
 import com.nimbusds.jose.JOSEException;
+import jakarta.mail.MessagingException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -21,7 +22,7 @@ public class AuthController {
         this.authService = authService;
     }
     @PostMapping("/login")
-    public ResponseEntity<HashMap<String, String>> login(@RequestBody LoginDto loginDto) throws IOException, NoSuchAlgorithmException, InvalidKeySpecException, JOSEException {
+    public ResponseEntity<HashMap<String, String>> login(@RequestBody LoginDto loginDto) throws IOException, NoSuchAlgorithmException, InvalidKeySpecException, JOSEException, MessagingException {
         HashMap<String,String> login = authService.login(loginDto);
         if(login.containsKey("jwt")){
             return ResponseEntity.status(HttpStatus.OK).body(login);

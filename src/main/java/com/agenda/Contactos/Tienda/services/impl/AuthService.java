@@ -11,12 +11,11 @@ import com.agenda.Contactos.Tienda.services.IJwtUtilityService;
 import com.agenda.Contactos.Tienda.dto.LoginDto;
 import com.agenda.Contactos.Tienda.dto.ResponseDto;
 import com.nimbusds.jose.JOSEException;
+import jakarta.mail.MessagingException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import javax.print.DocFlavor;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
@@ -40,7 +39,7 @@ public class AuthService implements IAuthService {
         this.emailService = emailService;
     }
     @Override
-    public HashMap<String, String> login(LoginDto loginDto) throws IOException, NoSuchAlgorithmException, InvalidKeySpecException, JOSEException {
+    public HashMap<String, String> login(LoginDto loginDto) throws IOException, NoSuchAlgorithmException, InvalidKeySpecException, JOSEException, MessagingException {
         HashMap<String, String> jwt = new HashMap<>();
         Date timeStamp = new Date();
         Optional<User> userOptional = this.userRepository.findByEmail(loginDto.getEmail());
@@ -58,19 +57,14 @@ public class AuthService implements IAuthService {
         if(user.getConfirm()==false){
             jwt.put("Error","unconfirmed email, confirmation email is sent");
             jwt.put("TimeStamp",timeStamp.toString());
-            emailService.sendEMail(user.getEmail(),"GDN-API: Confirmación de correo electronico",
-                    "¡Gracias por registrarte "+ user.getEmail() +"!\n\n" +
-                            "Para completar el registro, por favor haz click en el siguiente enlace para confirmar tu dirección de correo electrónico:\n\n"
-                            + "http://localhost:8080/auth/confirm-mail/" + user.getToken_confirm()+"\n\n"+"Muchas gracias!!!");
+            emailService.sendEmailConfirmation(user.getEmail(),user.getToken_confirm());
             return jwt;
         }
         if(VerifyPassword(loginDto.getPassword(),user.getPassword())){
             jwt.put("jwt",jwtUtilityService.generateToken(user));
             jwt.put("TimeStamp",timeStamp.toString());
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-            emailService.sendEMail("leandrosarvi@gmail.com","GDN-API: Alerta de inicio de sesion",
-                    "El usuario "+ loginDto.getEmail()+" ha iniciado sesion con exito \n\n"
-                            + "Horario: " + timeStamp.toString()+"\n\n"+ auth.getDetails().toString());
+            emailService.sendEMail(user.getEmail(), timeStamp.toString(), auth.getDetails().toString());
         }
         else {
             jwt.put("Error","Authentication failed!");
@@ -103,10 +97,7 @@ public class AuthService implements IAuthService {
             response.setMessage("User created correctly, email was sent to confirm the email!!!");
             response.setTimeStamp(now);
             // Send mail confirmation
-            emailService.sendEMail(user.getEmail(), "GDN-API: Confirmación de correo electronico",
-                    "¡Gracias por registrarte "+ user.getEmail() +"!\n\n" +
-                              "Para completar el registro, por favor haz click en el siguiente enlace para confirmar tu dirección de correo electrónico:\n\n"
-                            + "http://localhost:8080/auth/confirm-mail/" +token+"\n\n"+"Muchas gracias!!!");
+            emailService.sendEmailConfirmation(user.getEmail(), token);
         }
         return response;
     }

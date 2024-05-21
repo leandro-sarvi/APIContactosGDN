@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Alerta de inicio de sesión</title>
+    <style>
+        .container {
+            font-family: Arial, sans-serif;
+            margin: 0 auto;
+            padding: 20px;
+            max-width: 600px;
+            border: 1px solid #dddddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+        .header {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #4CAF50;
+        }
+        .content {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        .footer {
+            font-size: 14px;
+            color: #777777;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">GDN-API: Alerta de inicio de sesión</div>
+    <div class="content">
+        <p>El usuario <strong th:text="${toUser}">usuario@example.com</strong> ha iniciado sesión con éxito.</p>
+        <p><strong>Horario:</strong> <span th:text="${timeStamp}">Fecha y Hora</span></p>
+        <p><strong>Detalles:</strong> <span th:text="${details}">Detalles del inicio de sesión</span></p>
+    </div>
+    <div class="footer">
+        <p>Este es un mensaje automático de GDN-API.</p>
+    </div>
+</div>
+</body>
+</html>

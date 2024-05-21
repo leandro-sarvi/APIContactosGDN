@@ -6,6 +6,7 @@ La API utiliza OpenSSL para la generación de claves privadas y públicas, así 
 - Spring Boot: Framework de aplicación de Java para crear aplicaciones autónomas y basadas en producción.
 - Spring Security: Marco de seguridad que proporciona autenticación y control de acceso para aplicaciones Spring.
 - JavaMail: Biblioteca de Java para enviar correos electrónicos.
+- Thymeleaf: motor de plantillas de XML/XHTML/HTML5
 - OpenSSL: Herramienta utilizada para la generación de claves privadas y públicas.
 - JWT (JSON Web Tokens): Estándar para la autenticación y autorización de usuarios.
 - UUID (Universally Unique Identifier): Utilizado para generar identificadores únicos, como las URL de confirmación de correo electrónico.
